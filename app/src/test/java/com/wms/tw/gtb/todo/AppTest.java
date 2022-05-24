@@ -10,6 +10,6 @@ class AppTest {
     @Test
     void shoule_list_exsiting_tasks() {
         final var result = new App().run();
-        Assertions.assertEquals(List.of("Task 001", "Task 02"), result);
+        Assertions.assertEquals(List.of("Task 01", "Task 02"), result);
     }
 }
