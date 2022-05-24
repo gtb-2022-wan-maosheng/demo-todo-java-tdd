@@ -5,7 +5,7 @@ import java.nio.file.Path;
 public class  Constants {
     public Constants() {
     }
-    
+
     public static final String USER_HOME_PATH = System.getProperty("user.home");
     public static final String TODO_CONFIG_ROOT = ".todo";
     public static final String TASKS_FILENAME = "tasks";
