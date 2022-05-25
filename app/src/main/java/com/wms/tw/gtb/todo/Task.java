@@ -1,8 +1,8 @@
 package com.wms.tw.gtb.todo;
 
 public class Task {
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
     private final boolean isCompleted;
 
     public Task(int id, String name, boolean isCompleted) {
@@ -15,23 +15,15 @@ public class Task {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public boolean isCompleted() {
+        return this.isCompleted;
     }
 
     String format() {
         return String.format("%d %s", getId(), getName());
-    }
-
-    public boolean isCompleted() {
-        return this.isCompleted;
     }
 }
