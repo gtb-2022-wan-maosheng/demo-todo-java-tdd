@@ -2,7 +2,7 @@ package com.wms.tw.gtb.todo;
 
 import java.nio.file.Path;
 
-public class  Constants {
+public class Constants {
     public Constants() {
     }
 
