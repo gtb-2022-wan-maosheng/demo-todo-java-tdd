@@ -17,14 +17,14 @@ class AddCommandTest {
 
     @Test
     void shoule_compose_task_using_multiple_words() {
-        final var command = createCommandFrom("add", "fizz", "buzz");
+        final var command = createCommandFrom("fizz", "buzz");
         command.execute();
         verify(taskRepository).create(new Task(0, "fizz buzz", false));
     }
 
     @Test
     void shoule_use_empty_when_no_args_provided() {
-        final var command = createCommandFrom("add");
+        final var command = createCommandFrom();
         command.execute();
         verify(taskRepository).create(new Task(0, "", false));
     }
