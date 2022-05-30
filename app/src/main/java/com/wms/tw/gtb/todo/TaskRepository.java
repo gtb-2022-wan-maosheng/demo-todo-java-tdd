@@ -21,7 +21,7 @@ public class TaskRepository {
         try {
             return Files.readAllLines(Constants.TASK_FILE_PATH);
         } catch (IOException e) {
-            throw new TodoCannotReadFileException();
+            throw new TodoException();
         }
     }
 
@@ -31,7 +31,7 @@ public class TaskRepository {
             bufferedWriter.write("+ " + taskName);
             bufferedWriter.newLine();
         } catch (IOException e) {
-            throw new TodoCannotReadFileException();
+            throw new TodoException();
         }
         return List.of();
     }
