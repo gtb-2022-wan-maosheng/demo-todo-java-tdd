@@ -47,6 +47,7 @@ class AppTest {
     }
     @Nested
     class AddCommand {
+
         @Nested
         class WhenSingleWordProvided{
             @Test
@@ -61,6 +62,27 @@ class AppTest {
                                 "1 Task 01",
                                 "2 Task 02",
                                 "5 foobar",
+                                "# Completed",
+                                "3 Task 03",
+                                "4 Task 04"),
+                        result);
+            }
+        }
+
+        @Nested
+        class WhenMultipleWordProvided{
+            @Test
+            void shoule_use_all_worlds_as_name() {
+                //Given -> Arrange
+                //When -> Act
+                app.run("add", "fizz", "buzz");
+                //Then -> Assert
+                final var result = new App().run();
+                Assertions.assertEquals(List.of(
+                                "# To be done",
+                                "1 Task 01",
+                                "2 Task 02",
+                                "5 fizz buzz",
                                 "# Completed",
                                 "3 Task 03",
                                 "4 Task 04"),
