@@ -1,45 +1,36 @@
 package com.wms.tw.gtb.todo;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 class AddCommandTest {
 
-    private MyTaskRepository taskRepository;
+    private TaskRepository taskRepository;
 
     @BeforeEach
     void setUp() {
-        taskRepository = new MyTaskRepository();
+        taskRepository = mock(TaskRepository.class);
     }
 
     @Test
     void shoule_compose_task_using_multiple_words() {
-        final var command = new AddCommand(taskRepository, "add", "fizz", "buzz");
+        final var command = createCommandFrom("add", "fizz", "buzz");
         command.execute();
-        Assertions.assertEquals("fizz buzz", taskRepository.getTaskName());
+        verify(taskRepository).create(new Task(0, "fizz buzz", false));
     }
 
     @Test
     void shoule_use_empty_when_no_args_provided() {
-        final var command = new AddCommand(taskRepository, "add");
+        final var command = createCommandFrom("add");
         command.execute();
-        Assertions.assertEquals("", taskRepository.getTaskName());
+        verify(taskRepository).create(new Task(0, "", false));
     }
 
-    private static class MyTaskRepository extends TaskRepository {
-        private Task task;
-
-        @Override
-        List<String> create(Task task) {
-            this.task = task;
-            return List.of();
-        }
-
-        public String getTaskName() {
-            return this.task.getName();
-        }
+    private AddCommand createCommandFrom(String... args) {
+        return new AddCommand(taskRepository, args);
     }
+
 }
