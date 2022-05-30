@@ -1,6 +1,5 @@
 package com.wms.tw.gtb.todo;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class AddCommand {
@@ -14,7 +13,8 @@ public class AddCommand {
 
     List<String> execute() {
         final var taskName = String.join(" ", args);
-        return taskRepository.create(new Task(0, taskName, false));
+        taskRepository.create(new Task(0, taskName, false));
+        return List.of();
     }
 
 }
