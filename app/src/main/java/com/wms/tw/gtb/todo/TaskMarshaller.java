@@ -3,7 +3,8 @@ package com.wms.tw.gtb.todo;
 public class TaskMarshaller {
 
     String marshal(Task task) {
-        return "+ " + task.getName();
+        final var completedSign = task.isCompleted() ? "x" : "+";
+        return completedSign + " " + task.getName();
     }
 
     Task unmarshal(int id, String line) {
