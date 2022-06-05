@@ -4,6 +4,10 @@ public class TaskFactory {
     public TaskFactory() {
     }
 
+    static String marshal(Task task) {
+        return "+ " + task.getName();
+    }
+
     static Task createTask(int id, String line) {
         final var fields = line.split(" ", 2);
         final var name = fields[1];

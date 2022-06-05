@@ -26,9 +26,9 @@ public class TaskRepository {
     }
 
     public void create(Task task) {
-        final var taskName = task.getName();
         try (var bufferedWriter = Files.newBufferedWriter(Constants.TASK_FILE_PATH, StandardOpenOption.APPEND)) {
-            bufferedWriter.write("+ " + taskName);
+            final String line = TaskFactory.marshal(task);
+            bufferedWriter.write(line);
             bufferedWriter.newLine();
         } catch (IOException e) {
             throw new TodoException();
