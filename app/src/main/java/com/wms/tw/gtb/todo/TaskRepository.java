@@ -12,7 +12,7 @@ public class TaskRepository {
         final List<String> lines = readTaskLines();
         final List<Task> tasks = new ArrayList<>();
         for (int i = 0; i < lines.size(); i++) {
-            tasks.add(TaskFactory.createTask(i + 1, lines.get(i)));
+            tasks.add(TaskMarshaller.unmarshal(i + 1, lines.get(i)));
         }
         return tasks;
     }
@@ -27,7 +27,7 @@ public class TaskRepository {
 
     public void create(Task task) {
         try (var bufferedWriter = Files.newBufferedWriter(Constants.TASK_FILE_PATH, StandardOpenOption.APPEND)) {
-            final String line = TaskFactory.marshal(task);
+            final String line = TaskMarshaller.marshal(task);
             bufferedWriter.write(line);
             bufferedWriter.newLine();
         } catch (IOException e) {
