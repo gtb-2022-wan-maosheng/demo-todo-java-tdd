@@ -1,10 +1,13 @@
 package com.wms.tw.gtb.todo;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TaskMarshallerTest {
 
@@ -15,15 +18,17 @@ class TaskMarshallerTest {
         taskMarshaller = new TaskMarshaller();
     }
 
-    @Test
-    void should_parse_completed_property_for_task() {
-        final var isCompleted = taskMarshaller.unmarshal(1, "+ foobar").isCompleted();
-        assertFalse(isCompleted);
+    @ParameterizedTest
+    @MethodSource("lines_and_tasks")
+    void should_marshal_to_plain_text(String line, Task task) {
+        assertEquals(line, taskMarshaller.marshal(task));
     }
 
-    @Test
-    void should_support_name_with_multiple_whitespaces() {
-        final var task = taskMarshaller.unmarshal(1, "+     foo    bar  ");
-        Assertions.assertEquals("    foo    bar  ", task.getName());
+    public static Stream<Arguments> lines_and_tasks() {
+        return Stream.of(
+                Arguments.of("+ foobar", new Task(1, "foobar", false)),
+                Arguments.of("+     foo    bar  ", new Task(1, "    foo    bar  ", false))
+
+        );
     }
 }
